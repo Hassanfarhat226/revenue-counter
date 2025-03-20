@@ -13,14 +13,13 @@
     }
 
     .revenue-section h2 {
-      font-size: 14px;
-      font-weight: normal;
+      font-size: 16px;
       color: #333;
     }
 
     /* Styling for the revenue number */
     #revenueAmount {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
       color: #000000;
     }
@@ -30,11 +29,11 @@
       display: inline-flex;
       align-items: center;
       margin-left: 10px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
       color: white;
       background-color: #000000;
-      padding: 5px 10px;
+      padding: 5px 15px;
       border-radius: 20px;
     }
 
@@ -45,7 +44,7 @@
       background-color: #2ecc71;
       border-radius: 50%;
       margin-right: 5px;
-      animation: pulse 1.5s infinite ease-in-out;
+      animation: pulse 2.5s infinite ease-in-out;
     }
 
     /* Pulsing animation for the dot */
@@ -55,7 +54,7 @@
         opacity: 1;
       }
       50% {
-        transform: scale(1.0);
+        transform: scale(2.5);
         opacity: 0.5;
       }
       100% {
@@ -76,43 +75,31 @@
   </div>
 
   <script>
-    // Starting revenue values (note: no commas in numeric literals)
+    // Initial revenue value (no commas in number literals)
     let revenue = 438725.54;
-    let targetRevenue = revenue;
+    const revenueDisplay = document.getElementById('revenueAmount');
 
-    // Configuration
-    const incrementAmount = 50.23;    // Total increase per update
-    const updateInterval = 2000;      // Update target every 2000ms (2 seconds)
-    const animationDuration = 1500;   // Animate the number over 1500ms
+    // Configuration: Increase by 50.23 every 2000ms (2 seconds)
+    const increment = 50.23;
+    const updateInterval = 2000; // in milliseconds
+    const ratePerMs = increment / updateInterval; // increase per millisecond
 
-    // Function to update the target revenue
-    function updateTargetRevenue() {
-      targetRevenue += incrementAmount;
-      animateRevenueChange();
-    }
+    let lastTime = performance.now();
 
-    // Function to animate the revenue display smoothly to the target
-    function animateRevenueChange() {
-      const startRevenue = revenue;
-      const change = targetRevenue - startRevenue;
-      const startTime = performance.now();
+    // The animation loop updates the revenue based on the elapsed time
+    function animate() {
+      const currentTime = performance.now();
+      const deltaTime = currentTime - lastTime;
+      lastTime = currentTime;
 
-      function animate(time) {
-        const elapsed = time - startTime;
-        const progress = Math.min(elapsed / animationDuration, 1);  // Clamp progress to 1
-        revenue = startRevenue + change * progress;
-        // Update the displayed revenue, formatting to 2 decimal places
-        document.getElementById('revenueAmount').textContent = `$${revenue.toLocaleString(undefined, {maximumFractionDigits: 2})}`;
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      }
+      revenue += ratePerMs * deltaTime;
+      revenueDisplay.textContent = `$${revenue.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 
       requestAnimationFrame(animate);
     }
 
-    // Update the target revenue at set intervals
-    setInterval(updateTargetRevenue, updateInterval);
+    // Start the animation loop
+    requestAnimationFrame(animate);
   </script>
 </body>
 </html>

@@ -10,6 +10,8 @@
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 10px;
+      border: 2px solid #FFD700; /* Yellow border */
+      box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5); /* Yellowish shadow */
     }
 
     .revenue-section h2 {
@@ -94,7 +96,7 @@
 
     // Function to update the target revenue with a random increment
     function updateTargetRevenue() {
-      // Random increment between 30 and 70 (adjust these values as needed)
+      // Random increment between 40.37 and 170.32 (adjust these values as needed)
       const randomIncrement = getRandomIncrement(40.37, 170.32);
       targetRevenue += randomIncrement;
       animateRevenueChange();

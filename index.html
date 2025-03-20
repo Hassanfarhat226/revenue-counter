@@ -76,14 +76,17 @@
   </div>
 
   <script>
-    // Starting revenue values (note: no commas in numeric literals)
-    let revenue = 438725.54;
+    // Default starting revenue value (use no commas in number literals)
+    const defaultRevenue = 438725.54;
+    // Retrieve saved revenue from localStorage, if available
+    let savedRevenue = parseFloat(localStorage.getItem("revenue"));
+    let revenue = isNaN(savedRevenue) ? defaultRevenue : savedRevenue;
     let targetRevenue = revenue;
 
     // Configuration
     const incrementAmount = 50.23;    // Total increase per update
-    const updateInterval = 3000;      // Update target every 2000ms (2 seconds)
-    const animationDuration = 1500;   // Animate the number over 1500ms
+    const updateInterval = 3000;      // Update target every 3000ms (3 seconds)
+    const animationDuration = 5000;   // Animate the number over 1500ms
 
     // Function to update the target revenue
     function updateTargetRevenue() {
@@ -101,10 +104,12 @@
         const elapsed = time - startTime;
         const progress = Math.min(elapsed / animationDuration, 1);  // Clamp progress to 1
         revenue = startRevenue + change * progress;
-        // Update the displayed revenue, formatting to 2 decimal places
-        document.getElementById('revenueAmount').textContent = `$${revenue.toLocaleString(undefined, {maximumFractionDigits: 2})}`;
+        document.getElementById('revenueAmount').textContent = `$${revenue.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
         if (progress < 1) {
           requestAnimationFrame(animate);
+        } else {
+          // Once the animation completes, save the updated revenue to localStorage
+          localStorage.setItem("revenue", revenue);
         }
       }
 

@@ -54,7 +54,7 @@
                 opacity: 1;
             }
             50% {
-                transform: scale(1.5);
+                transform: scale(2.5);
                 opacity: 0.5;
             }
             100% {
@@ -76,16 +76,16 @@
 
     <script>
         // Starting value for the revenue
-        let revenue = 0;
+        let revenue = 438,725.54;
 
         // Function to increment the revenue number
         function increaseRevenue() {
-            revenue += 100;  // Add 100 every time, adjust as needed
+            revenue += 50.23;  // Add 100 every time, adjust as needed
             document.getElementById('revenueAmount').textContent = `$${revenue.toLocaleString()}`;
         }
 
         // Set interval to increase revenue every 1 second (1000ms)
-        setInterval(increaseRevenue, 1000);
+        setInterval(increaseRevenue, 2000);
     </script>
 </body>
 </html>

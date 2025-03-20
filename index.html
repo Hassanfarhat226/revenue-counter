@@ -84,13 +84,19 @@
     let targetRevenue = revenue;
 
     // Configuration
-    const incrementAmount = 50.23;    // Total increase per update
     const updateInterval = 3000;      // Update target every 3000ms (3 seconds)
-    const animationDuration = 1000;   // Animate the number over 1500ms
+    const animationDuration = 1000;   // Animate the number over 1000ms (1 second)
 
-    // Function to update the target revenue
+    // Function to generate a random increment between min and max
+    function getRandomIncrement(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    // Function to update the target revenue with a random increment
     function updateTargetRevenue() {
-      targetRevenue += incrementAmount;
+      // Random increment between 30 and 70 (adjust these values as needed)
+      const randomIncrement = getRandomIncrement(30, 70);
+      targetRevenue += randomIncrement;
       animateRevenueChange();
     }
 
